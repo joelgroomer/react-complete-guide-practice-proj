@@ -4,19 +4,79 @@ import Card from '../UI/Card';
 import Button from '../UI/Button';
 
 const NewUserForm = props => {
+  // STATE
   const [enteredUsername, setEnteredUsername] = useState('');
   const [enteredAge, setEnteredAge] = useState('');
-  const [isValid, setIsValid] = useState(true);
+  const [isUsernameValid, setIsUsernameValid] = useState(true);
+  const [isAgeValid, setIsAgeValid] = useState(true);
 
+  // PROPS
+  const addErrorMessage = props.addErrorMessage;
+  const onSubmit = props.onSubmit;
+
+  // HELPERS
+  const isFormValid = isUsernameValid && isAgeValid;
+
+  // HANDLERS
+  const handleUsernameChange = event => {
+    if (event.target.value.trim().length > 0) {
+      setIsUsernameValid(true);
+    }
+    setEnteredUsername(event.target.value);
+  };
+
+  const handleAgeChange = event => {
+    if (parseInt(event.target.value.trim()) > -1) {
+      setIsAgeValid(true);
+    }
+    setEnteredAge(event.target.value);
+  };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+
+    const username = enteredUsername.trim();
+    const age = parseInt(enteredAge.trim());
+
+    if (username.length === 0) {
+      addErrorMessage('Please enter a valid username.');
+      setIsUsernameValid(false);
+    }
+
+    if (age <= 0) {
+      addErrorMessage('Please enter a valid age of 0 or older.');
+      setIsAgeValid(false);
+    }
+
+    if (isNaN(age)) {
+      addErrorMessage("Please enter a number for the user's age.");
+      setIsAgeValid(false);
+    }
+
+    onSubmit(username, age);
+  };
+
+  // OUTPUT
   return (
     <Card>
       <form
-        className={`${styles['new-user-form']}${isValid ? '' : ' invalid'}`}
+        className={`${styles['new-user-form']}${isFormValid ? '' : ' invalid'}`}
+        onSubmit={handleSubmit}
       >
-        <label>Username</label>
-        <input type="text" value={enteredUsername} />
-        <label>Age (Years)</label>
-        <input type="number" value={enteredAge} />
+        <label className={isUsernameValid ? '' : 'invalid'}>Username</label>
+        <input
+          className={isUsernameValid ? '' : 'invalid'}
+          type="text"
+          value={enteredUsername}
+          onChange={handleUsernameChange}
+        />
+        <label className={isAgeValid ? '' : 'invalid'}>Age (Years)</label>
+        <input
+          className={isAgeValid ? '' : 'invalid'}
+          type="number"
+          value={enteredAge}
+          onChange={handleAgeChange}
+        />
         <Button>Add User</Button>
       </form>
     </Card>

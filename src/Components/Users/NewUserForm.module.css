@@ -1,7 +1,6 @@
 .new-user-form {
   display: block;
   width: 100%;
-  border: 1px solid #ccc;
   font: inherit;
   line-height: 1.5rem;
   padding: 0 0.25rem;
@@ -13,4 +12,19 @@
 
 .new-user-form input {
   width: 100%;
+}
+
+.new-user-form input:focus {
+  outline: none;
+  background: #d0f0fa;
+  border-color: #00078b;
+}
+
+.new-user-form label.invalid {
+  color: red;
+}
+
+.new-user-form input.invalid {
+  color: red;
+  background-color: pink;
 }

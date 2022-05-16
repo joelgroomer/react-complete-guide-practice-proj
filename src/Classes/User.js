@@ -1,5 +1,5 @@
 class User {
-  constructor(username, age) {
+  constructor(username, age, id = null) {
     if (
       typeof username != 'string' ||
       username.trim().length === 0 ||
@@ -11,6 +11,7 @@ class User {
 
     this.username = username;
     this.age = age;
+    this.id = id || Math.random().toString();
   }
 }
 

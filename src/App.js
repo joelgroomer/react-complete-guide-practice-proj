@@ -5,13 +5,19 @@ import User from './Classes/User';
 import ErrorModal from './Components/UI/ErrorModal';
 
 function App() {
-  const [errorMessages, setErrorMessages] = useState(new Set());
+  const [errorMessages, setErrorMessages] = useState([]);
   const [userList, setUserList] = useState(new Set());
 
   const addErrorMessage = msg => {
     setErrorMessages(prevValue => {
-      prevValue.add(msg);
-      return prevValue;
+      return [msg, ...prevValue];
+    });
+  };
+
+  const removeErrorMessage = msg => {
+    setErrorMessages(prevValue => {
+      const newValue = prevValue.filter(m => m !== msg);
+      return newValue;
     });
   };
 
@@ -31,7 +37,12 @@ function App() {
     <div>
       <NewUserForm addErrorMessage={addErrorMessage} onSubmit={addNewUser} />
       <UserList users={userList} />
-      <ErrorModal errorMessages={errorMessages} />
+      {errorMessages.length > 0 && (
+        <ErrorModal
+          errorMessages={errorMessages}
+          acknowledge={removeErrorMessage}
+        />
+      )}
     </div>
   );
 }

@@ -1,5 +1,8 @@
 import React from 'react';
 import Button from './Button';
+import Card from './Card';
+
+import styles from './ErrorModal.module.css';
 
 const ErrorModal = props => {
   /// PROPS
@@ -12,11 +15,10 @@ const ErrorModal = props => {
   };
 
   return (
-    <div>
-      <div>Errors: {errorMessages.count}</div>
+    <Card className={styles['error-card']}>
       <div>{errorMessages[0]}</div>
       <Button onClick={handleOK}>OK</Button>
-    </div>
+    </Card>
   );
 };
 

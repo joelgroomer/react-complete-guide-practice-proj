@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './UserListItem.module.css';
 
 const UserListItem = props => {
   // PROPS
@@ -10,11 +11,7 @@ const UserListItem = props => {
     props.age === 1 ? 'year' : 'years'
   } old)`;
 
-  return (
-    <li className="user-list-item">
-      <div>{output}</div>
-    </li>
-  );
+  return <li className={styles['user-list-item']}>{output}</li>;
 };
 
 export default UserListItem;

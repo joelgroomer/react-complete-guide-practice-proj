@@ -1,0 +1,6 @@
+li.user-list-item {
+  width: 100%;
+  border: 1px;
+  border-style: solid;
+  padding: 0.5rem 1rem;
+}

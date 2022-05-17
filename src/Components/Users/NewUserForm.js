@@ -39,21 +39,30 @@ const NewUserForm = props => {
     const age = parseInt(enteredAge.trim());
 
     if (username.length === 0) {
-      addErrorMessage('Please enter a valid username.');
-      setIsUsernameValid(false);
     }
 
-    if (age <= 0) {
-      addErrorMessage('Please enter a valid age of 0 or older.');
-      setIsAgeValid(false);
+    if (age < 0) {
     }
 
     if (isNaN(age)) {
-      addErrorMessage("Please enter a number for the user's age.");
-      setIsAgeValid(false);
     }
 
-    onSubmit(username, age);
+    if (username.length > 0) {
+      if (!isNaN(age)) {
+        if (age >= 0) {
+          onSubmit(username, age);
+        } else {
+          addErrorMessage('Please enter a valid age of 0 or older.');
+          setIsAgeValid(false);
+        }
+      } else {
+        addErrorMessage("Please enter a number for the user's age.");
+        setIsAgeValid(false);
+      }
+    } else {
+      addErrorMessage('Please enter a valid username.');
+      setIsUsernameValid(false);
+    }
   };
 
   // OUTPUT

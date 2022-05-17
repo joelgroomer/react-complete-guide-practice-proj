@@ -6,7 +6,7 @@ import ErrorModal from './Components/UI/ErrorModal';
 
 function App() {
   const [errorMessages, setErrorMessages] = useState([]);
-  const [userList, setUserList] = useState(new Set());
+  const [userList, setUserList] = useState([]);
 
   const addErrorMessage = msg => {
     setErrorMessages(prevValue => {
@@ -30,7 +30,7 @@ function App() {
       return;
     }
 
-    setUserList(prevValue => prevValue.add(user));
+    setUserList(prevValue => [...prevValue, user]);
   };
 
   return (

@@ -4,7 +4,7 @@ class User {
       typeof username != 'string' ||
       username.trim().length === 0 ||
       typeof age != 'number' ||
-      age <= 0
+      age < 0
     ) {
       throw new Error('Invalid initial values provided');
     }
